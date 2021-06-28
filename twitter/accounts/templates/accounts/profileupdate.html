@@ -1,0 +1,14 @@
+{% extends 'feed/base.html' %} {% block content %}
+
+<form method="POST" , enctype="multipart/form-data">
+  {% csrf_token %}
+  <fieldset class="form-group">
+    <legend class="border-bottom text-white mb-4">Edit Profile</legend>
+    <div class="text-white">{{form.as_p}}</div>
+  </fieldset>
+  <div class="from-group">
+    <button class="btn btn-primary" type="submit">Save Changes</button>
+  </div>
+</form>
+
+{% endblock content %}

@@ -1,0 +1,42 @@
+{%extends 'feed/base.html'%}
+{%block content%}
+
+<div class="container">
+  <div class="jumbotron py-4 text-white">
+    <h1 class="display-5">Hello <span class="text-caps">{{user.username}}</span></h1>
+    <p class="lead">This is a simple twitter clone</p>
+    <hr style="background-color: rgb(110, 110, 110);" class="my-4">
+    <p class="lead">
+      <a class="btn btn-primary btn-lg" href="{% url 'tweetcreate' %}" role="button">Create Tweet</a>
+    </p>
+  </div>
+  <div class="card">
+    {% for tweet in object_list %}
+    <div class="card-body">
+      <a href="{% url 'tweetdetail' tweet.id %}">
+        <img style="width:50px; max-height: 50px" class="rounded-circle ccount-img img-fluid mr-2" src="{{tweet.author.profile.image.url}}"
+          alt="IMAGE">
+        <a class="text-none" href="{% url 'userdetail' tweet.author %}">
+          <span class="text-white">{{tweet.author.profile.name}}</span> @{{tweet.author}}
+        </a>
+      </a>
+      <hr class="my-4" style="background-color:#425369">
+      <h5 class="card-text text-white">{{tweet.text}}</h5>
+      <div class="row">
+        <div class="col-7">
+          <p style="color:rgb(173, 173, 173)">{{tweet.datetime | date:"g:iA . F j, Y"}}</p>
+        </div>
+        <div class="col-5 text-right">
+          <a href="{% url 'tweetdetail' tweet.id %}" class="text-primary">Reply</a>
+          {% if tweet.author == user %}
+          <a href="{% url 'tweetupdate' tweet.id %}" class="text-success mx-2">Update</a>
+          <a href="{% url 'tweetdelete' tweet.id %}" class="text-danger">Delete</a>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+    <hr class="mt-2" style="background-color:#425369">
+    {% endfor %}
+  </div>
+</div>
+{%endblock content%}

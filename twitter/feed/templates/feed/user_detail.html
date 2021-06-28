@@ -1,0 +1,103 @@
+{% extends 'feed/base.html' %} {% block content %}
+<div class="container">
+    <div class="col-sm-2">
+        <div class="media">
+            <img style="width: 150px; max-height: 150px;" class="rounded-circle ccount-img img-fluid mb-2"
+                src="{{user_profile.profile.image.url}}" alt="Generic placeholder image" />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-6 pl-4">
+            <h3 class="text-white mb-0">{{user_profile.profile.name}}</h3>
+            <p style="color: rgb(165, 165, 165)">@{{user_profile.username}}</p>
+        </div>
+        <div class="col-sm-6 text-right">
+            {% if user_profile == user %}
+            <div style="margin-left: auto; margin-right:auto">
+                <a class="btn btn-outline-primary mb-4 mr-3 " href="{% url 'profileupdate' %}">
+                    Edit profile
+                </a>
+            </div>
+            {% endif %}
+            {% if user_profile is not None and user_profile.id != user.id and user.username != '' %}
+            <form method="POST">
+                {% csrf_token %}
+                <div class="form-group">
+                    <button style="margin-left: 18px" {% if can_follow %} class="btn btn-outline-primary" {% else %}
+                        class="btn btn-primary" {% endif %}
+                        name="{% if can_follow %}follow{% else %}unfollow{% endif %}" type="submit">
+                        {% if can_follow %}
+                        Follow
+                        {% else %}
+                        Following
+                        {% endif %}
+                    </button>
+                </div>
+            </form>
+            {% endif %}
+        </div>
+
+        <div class="container pb-4 pl-4">
+            <p class="text-white mb-3">{{user_profile.profile.bio}}</p>
+            <div class="row">
+                {% if user_profile != None %}
+                <div class="form-inline col-6">
+                    <a href="{% url 'user-follow' user_profile.username %}" class="form-inline mr-4">
+                        <h6 class="text-white follow-click mb-0">{{ user_profile.profile.following }}</h6>
+                        <p class="mb-0 ml-2">Following</p>
+                    </a>
+                    <a href="{% url 'user-follower' user_profile.username %}" class="form-inline">
+                        <h6 class="text-white follow-click mb-0">{{ user_profile.profile.followers }}</h6>
+                        <p class="mb-0 ml-2">Followers</p>
+                    </a>
+                </div>
+                {% else %}
+                <div class="form-inline col-6">
+                    <a href="{% url 'user-follow' user_profile.username %}" class="form-inline mr-4">
+                        <h6 class="text-white follow-click mb-0">{{ user.profile.following }}</h6>
+                        <p class="mb-0 ml-2">Following</p>
+                    </a>
+                    <a href="{% url 'user-follower' user.username %}" class="form-inline">
+                        <h6 class="text-white follow-click mb-0">{{ user.profile.followers }}</h6>
+                        <p class="mb-0 ml-2">Followers</p>
+                    </a>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    <div class="card">
+        {% for tweet in object_list %}
+
+        <div class="card-body">
+            <a class="my-2" href="{% url 'tweetdetail' tweet.id %}">
+                <img style="width:50px; max-height:50px" class="rounded-circle ccount-img img-fluid mr-2"
+                    src="{{tweet.author.profile.image.url}}" alt="IMAGE" />
+                <a class="text-none" href="{% url 'profile' %}">
+                    <span class="text-white" style="text-transform: capitalize">{{tweet.author.profile.name}}</span>
+                    @{{tweet.author}}
+                </a>
+            </a>
+            <hr class="my-4" style="background-color: #425369" />
+            <h5 class="card-text text-white">{{tweet.text}}</h5>
+            <div class="row">
+                <div class="col-8">
+                    <p style="color:rgb(173, 173, 173)">{{tweet.datetime | date:"g:iA . F j, Y"}}</p>
+                </div>
+                <div class="col-4 text-right">
+                    <a href="{% url 'tweetdetail' tweet.id %}" class="text-primary">Reply</a>
+                    {% if tweet.author == user %}
+                    <a href="{% url 'tweetupdate' tweet.id %}" class="text-success mx-2">Update</a>
+                    <a href="{% url 'tweetdelete' tweet.id %}" class="text-danger">Delete</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+        <hr class="mt-4" style="background-color: #425369" />
+
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock content %}

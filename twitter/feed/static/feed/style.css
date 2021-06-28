@@ -1,0 +1,149 @@
+a {
+    text-decoration: none;
+
+    color: #ffffff;
+    background-color: transparent;
+}
+
+a:hover {
+    text-decoration: none;
+    color: #23d249;
+}
+
+a:not([href]) {
+    text-decoration: none;
+    color: inherit;
+}
+
+a:not([href]):hover {
+    text-decoration: none;
+
+    color: inherit;
+}
+
+/* The sidebar menu */
+.sidenav {
+    height: 100%;
+    /* Full-height: remove this if you want "auto" height */
+    width: 200px;
+    /* Set the width of the sidebar */
+    position: fixed;
+    /* Fixed Sidebar (stay in place on scroll) */
+    z-index: 1;
+    /* Stay on top */
+    top: 0;
+    /* Stay at the top */
+    left: 0;
+    background-color: #243447 !important;
+    /* Black */
+    overflow-x: hidden;
+    /* Disable horizontal scroll */
+    padding-top: 20px;
+    border-right: 1px solid #425369 !important;
+    
+}
+
+/* The navigation menu links */
+.sidenav a {
+    padding: 10px 15px 10px 25px;
+    font-size: 22px;
+    color: #ffffff;
+    display: block;
+}
+
+.sidenav div {
+    padding: 10px 15px 10px 25px;
+    font-size: 22px;
+    color: #ffffff;
+    display: block;
+}
+
+/* When you mouse over the navigation links, change their color */
+.sidenav a:hover {
+    color: #fffbfb;
+    background-color: #015fc4;
+    text-decoration: none;
+    font-size: 23px;
+}
+
+/* Style page content */
+.main {
+    margin-left: 160px;
+    /* Same as the width of the sidebar */
+    padding: 0px 10px;
+}
+
+/* On smaller screens, where height is less than 450px, change the style of the sidebar (less padding and a smaller font size) */
+@media screen and (max-height: 450px) {
+    .sidenav {
+        padding-top: 15px;
+    }
+
+    .sidenav a {
+        font-size: 18px;
+    }
+}
+
+
+/* Page content. The value of the margin-left property should match the value of the sidebar's width property */
+div.content {
+    margin-left: 200px;
+    padding: 1px 16px;
+    min-height: 900px;
+    background-color: #243447 !important;
+}
+
+/* On screens that are less than 700px wide, make the sidebar into a topbar */
+@media screen and (max-width: 700px) {
+    .sidebar {
+        width: 100%;
+        height: auto;
+        position: relative;
+    }
+
+    .sidebar a {
+        float: left;
+    }
+
+    div.content {
+        margin-left: 0;
+    }
+}
+
+/* On screens that are less than 400px, display the bar vertically, instead of horizontally */
+@media screen and (max-width: 400px) {
+    .sidebar a {
+        text-align: center;
+        float: none;
+    }
+}
+
+.text-caps{
+    text-transform: capitalize;
+}
+
+.text-none:hover{
+    text-decoration: none;
+}
+
+body{
+
+    height: 100%;
+}
+
+div.card{
+
+    background-color: #243447 !important;
+    border: 1px solid #425369;
+}
+
+div.jumbotron{
+    background-color: #30445e !important;
+    /* border: 1px solid #425369; */
+}
+
+input, textarea {
+    border-radius: 7px;
+}
+
+
