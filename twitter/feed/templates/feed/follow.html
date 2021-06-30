@@ -1,10 +1,20 @@
 {% extends "feed/base.html" %}
+
+{% block title %}
+    {% if follow == 'follows' %}
+        People followed by {{user_profile.profile.name}} (@{{user_profile.username}}) / Twitter
+    {% endif %}
+    {% if follow == 'followers' %}
+        People following {{user_profile.profile.name}} (@{{user_profile.username}}) / Twitter
+    {% endif %}
+{% endblock title%}
+
 {% block content %}
 <div class="container">
     {% if follow == 'follows' %}
     <div class="col-12 no-padding">
         <h3 class="text-white mb-3">
-            Follows
+            Following
         </h3>
         <div class="row pr-3 pl-3">
             {% for follow in follows %}

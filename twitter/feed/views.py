@@ -85,7 +85,7 @@ class TweetCreateView(LoginRequiredMixin, CreateView):
     model = Tweet
     
     fields = ['text']
-    success_url = '/'
+    success_url = '/home'
     def form_valid(self, form):
         form.instance.author = self.request.user
         return super().form_valid(form)
@@ -94,7 +94,7 @@ class TweetUpdateView(LoginRequiredMixin,UpdateView):
     model = Tweet
     
     fields = ['text']
-    success_url = '/'
+    success_url = '/home'
 
     def test_func(self):
         tweet = self.get_object()
@@ -104,7 +104,7 @@ class TweetUpdateView(LoginRequiredMixin,UpdateView):
 
 class TweetDeleteView(LoginRequiredMixin,DeleteView):
     model = Tweet
-    success_url = '/'
+    success_url = '/home'
 
     def test_func(self):
         tweet = self.get_object()
@@ -115,7 +115,7 @@ class TweetDeleteView(LoginRequiredMixin,DeleteView):
 
 class CommentDeleteView(LoginRequiredMixin,DeleteView):
     model = Comment
-    success_url = '/'
+    success_url = 'tweet/<int:pk>'
 
     def test_func(self):
         comment = self.get_object()
@@ -138,7 +138,9 @@ class FollowersListView(ListView):
 
     def get_context_data(self, *, object_list=None, **kwargs):
         data = super().get_context_data(**kwargs)
+        visible_user = self.visible_user()
         data['follow'] = 'followers'
+        data['user_profile'] = visible_user
         return data
 
 class FollowsListView(ListView):
@@ -155,5 +157,9 @@ class FollowsListView(ListView):
 
     def get_context_data(self, *, object_list=None, **kwargs):
         data = super().get_context_data(**kwargs)
+        visible_user = self.visible_user()
         data['follow'] = 'follows'
+        data['user_profile'] = visible_user
         return data
+
+   

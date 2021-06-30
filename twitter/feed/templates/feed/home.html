@@ -1,9 +1,9 @@
 {%extends 'feed/base.html'%}
+{% block title %} Home / Twitter {% endblock %}
 {%block content%}
-
 <div class="container">
   <div class="jumbotron py-4 text-white">
-    <h1 class="display-5">Hello <span class="text-caps">{{user.username}}</span></h1>
+    <h1 class="display-5">Hello <span class="text-caps">{{user.profile.name}}</span></h1>
     <p class="lead">This is a simple twitter clone</p>
     <hr style="background-color: rgb(110, 110, 110);" class="my-4">
     <p class="lead">
